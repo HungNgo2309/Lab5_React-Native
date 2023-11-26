@@ -1,0 +1,82 @@
+/**
+ * Sample React Native App
+ * https://github.com/facebook/react-native
+ *
+ * @format
+ */
+
+import React, { useEffect, useState } from 'react';
+
+import firestore from '@react-native-firebase/firestore';
+import { FlatList, ScrollView, StyleSheet, Text, View } from 'react-native';
+import {Appbar,TextInput,Button} from 'react-native-paper'
+import Todo from './component/todo';
+import Contacts from './component/contacts';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import 'react-native-gesture-handler';
+import TabNavigator from './component/ContactScreen';
+import Login from './component/Login';
+function App() {
+  // const [loading,setLoading]= useState(true);
+  // const [todo,setTodo]= useState('');
+  // const [todos,setTodos]= useState([]);
+  //  const ref = firestore().collection('todos');
+  //   // Hàm để thêm một công việc mới vào Firestore
+  //  async function addTodo() {
+  //     await ref.add({
+  //       title:todo,
+  //       complete:false,
+  //     });
+  //     setTodo('');// Xóa nội dung ô nhập liệu sau khi thêm công việc
+  //  }
+  //  // Sử dụng useEffect để theo dõi sự thay đổi trong collection 'todos' trên Firestore
+  //  useEffect(()=>{
+  //   // Thiết lập sự kiện lắng nghe sự thay đổi trong collection
+  //   return  ref.onSnapshot(querySnapshot=>{
+  //     const list =[];
+  //     // Lặp qua từng tài liệu trong collection
+  //     querySnapshot.forEach(doc=>{
+  //       const{title,complete}=doc.data();  // Trích xuất dữ liệu từ tài liệu
+  //       list.push({// Thêm tài liệu vào danh sách công việc
+  //         id:doc.id,
+  //         title,
+  //         complete,
+  //       });
+  //     });
+  //     setTodos(list);// Cập nhật danh sách công việc trong trạng thái
+  //     if(loading){ // Nếu đang trong quá trình tải dữ liệu, đặt trạng thái loading thành false
+  //       setLoading(false)
+  //     }
+  //   });
+  //  });
+  //  if(loading){// Nếu đang trong quá trình tải dữ liệu, trả về null
+  //   return null;
+  //  }
+  const Stack = createNativeStackNavigator();
+   return (
+    <NavigationContainer>
+    <Stack.Navigator initialRouteName="Login">
+      <Stack.Screen name="Login" component={Login} />
+      <Stack.Screen name="TabNavigator" component={TabNavigator} />
+    </Stack.Navigator>
+  </NavigationContainer>
+    // <View style={{flex:1}}>
+      
+    //   {/* <Appbar>
+    //     <Appbar.Content title={'TODOs List'}/>
+    //   </Appbar>
+    //  <FlatList
+    //  style={{flex:1}}
+    //  data={todos} // item là một phần tử của data=> nó có các thuộc tính vd :id, title,complete
+    //  keyExtractor={(item)=>item.id}
+    //  renderItem={({item})=><Todo {...item}/>}// Render từng công việc
+    //  />
+    //   <TextInput label={'New Todo'} onChangeText={(text)=>setTodo(text)}/>
+    //   <Button onPress={addTodo}>Add TODO</Button> */}
+    //   </View>
+   ) 
+}
+
+
+export default App;

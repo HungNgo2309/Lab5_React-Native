@@ -8,14 +8,16 @@ function Todo({id,title,complete}){
         .doc(id)
         .update({
             complete:!complete,
-
+            
         });
     }
     return(
         <List.Item
         title={title}
         onPress={()=>toggleComplete()} 
-        left={props=>(
+        left={props=>(//Điều này cho phép bạn truyền các props từ List.Item 
+        //vào List.Icon, bao gồm color, size, style, 
+        //và bất kỳ thuộc tính nào khác mà List.Icon có thể sử dụng.
             <List.Icon {...props} icon={complete?'check':'cancel'}/>
         )}
         />

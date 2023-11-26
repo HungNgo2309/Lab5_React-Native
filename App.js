@@ -6,58 +6,46 @@
  */
 
 import React, { useEffect, useState } from 'react';
-
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import 'react-native-gesture-handler';
+import TabNavigator from './component/TabNavigator';
+import Login from './component/Login';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import Modal from './component/Modal';
+import SignupScreen from './lab3/SignupScreen';
+import LoginScreen from './lab3/LoginScreen';
+import ResetScreen from './lab3/ResetPassword';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { AuthenticatedUserProvider } from './providers';
+import { RootNavigator } from './lab3/RootNavigator';
+import Home from './Lab5/HomeScreen';
+import Header from './Lab5/Header';
+import ListButton from './Lab5/ListButton';
 import firestore from '@react-native-firebase/firestore';
-import { FlatList, ScrollView, StyleSheet, Text, View } from 'react-native';
-import {Appbar,TextInput,Button} from 'react-native-paper'
-import Todo from './component/todo';
 
 function App() {
-  const [loading,setLoading]= useState(true);
-  const [todo,setTodo]= useState('');
-  const [todos,setTodos]= useState([]);
-   const ref = firestore().collection('todos');
-   async function addTodo() {
-      await ref.add({
-        title:todo,
-        complete:false,
-      });
-      setTodo('');
-   }
-   useEffect(()=>{
-    return  ref.onSnapshot(querySnapshot=>{
-      const list =[];
-      querySnapshot.forEach(doc=>{
-        const{title,complete}=doc.data();
-        list.push({
-          id:doc.id,
-          title,
-          complete,
-        });
-      });
-      setTodos(list);
-      if(loading){
-        setLoading(false)
-      }
-    });
-   });
-   if(loading){
-    return null;
-   }
+  //const Stack = createNativeStackNavigator(); 
    return (
-    <View style={{flex:1}}>
-      <Appbar>
-        <Appbar.Content title={'TODOs List'}/>
-      </Appbar>
-     <FlatList
-     style={{flex:1}}
-     data={todos}
-     keyExtractor={(item)=>item.id}
-     renderItem={({item})=><Todo {...item}/>}
-     />
-      <TextInput label={'New Todo'} onChangeText={(text)=>setTodo(text)}/>
-      <Button onPress={addTodo}>Add TODO</Button>
-      </View>
+  //  <SafeAreaProvider>
+  //      <NavigationContainer>  
+  //     <Stack.Navigator initialRouteName="Login">
+  //        <Stack.Screen name='PhoneLogin' component={PhoneNumberLogin}/>
+  //       <Stack.Screen name="Login" component={LoginScreen} />
+  //       <Stack.Screen name="Signup" component={SignupScreen} />
+  //       <Stack.Screen name="Reset" component={ResetScreen} />
+  //       <Stack.Screen name="TabNavigator" component={TabNavigator} />
+  //     </Stack.Navigator>
+  //   </NavigationContainer>
+  //  </SafeAreaProvider>
+
+  
+    <AuthenticatedUserProvider>
+      <SafeAreaProvider>
+         <RootNavigator/>
+      </SafeAreaProvider>
+    </AuthenticatedUserProvider>
+     
    ) 
 }
 

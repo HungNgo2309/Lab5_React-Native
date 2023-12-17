@@ -1,16 +1,13 @@
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { createStackNavigator } from "@react-navigation/stack";
 import React from "react";
 import { Image } from "react-native";
-import { create } from "react-test-renderer";
-import Home from "./HomeScreen";
-import SearchAutoComplete from "./Search";
-import { HomeStack } from "./HomeStack";
-import Logout from "./Logout";
+import CustomerHome from "./CustomerHome";
+import DatetimePicker from "./Datetimepicker";
 
-const Tab = createBottomTabNavigator();
-const Tabs=()=>{
+const Stack = createStackNavigator();
+const CustomerStack=()=>{
     return(
-        <Tab.Navigator
+        <Stack.Navigator
             screenOptions={({route})=>({
                 showLabel:false,
                 headerShown:false,
@@ -18,7 +15,7 @@ const Tabs=()=>{
                     height:"10%",
                     backgroundColor:'black'
                 },
-                tabBarIcon:({focused})=>{
+                StackBarIcon:({focused})=>{
                     const tintColor=focused?'white':'gray';
                     switch(route.name){
                         case "Home":
@@ -68,11 +65,9 @@ const Tabs=()=>{
                     }
                 }
             })}>
-                <Tab.Screen name="Home" component={HomeStack}/>
-                <Tab.Screen name="Search" component={SearchAutoComplete}/>
-                <Tab.Screen name="Notification" component={Home}/>
-                <Tab.Screen name="Setting" component={Logout}/>
-        </Tab.Navigator>
+                <Stack.Screen name="Home" component={CustomerHome}/>
+                <Stack.Screen name="Service" component={DatetimePicker}/>
+        </Stack.Navigator>
     )
 }
-export default Tabs;
+export default CustomerStack;

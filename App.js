@@ -23,6 +23,8 @@ import Home from './Lab5/HomeScreen';
 import Header from './Lab5/Header';
 import ListButton from './Lab5/ListButton';
 import firestore from '@react-native-firebase/firestore';
+import { MyContextControllerProvider } from './Ex7/context';
+import Route from './Ex7/Route';
 
 function App() {
   //const Stack = createNativeStackNavigator(); 
@@ -40,11 +42,14 @@ function App() {
   //  </SafeAreaProvider>
 
   
-    <AuthenticatedUserProvider>
+    <MyContextControllerProvider>
+      <NavigationContainer>
       <SafeAreaProvider>
-         <RootNavigator/>
+         {/* <RootNavigator/> */}
+         <Route/>
       </SafeAreaProvider>
-    </AuthenticatedUserProvider>
+      </NavigationContainer>
+    </MyContextControllerProvider>
      
    ) 
 }

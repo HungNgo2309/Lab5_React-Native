@@ -12,8 +12,8 @@ const Tab = createStackNavigator();
 
 const Tabs =()=>{
     return(
-        <Tab.Navigator initialRouteName="Ngo Van Hung"  >
-            <Tab.Screen name="Ngo Van Hung" component={Home} options={{
+        <Tab.Navigator initialRouteName="Login"  >
+            <Tab.Screen name="Home" component={Home} options={{
         
         tabBarIcon: ({ color, size }) => (
           <FontAwesome name="home" color='blue' size={size}/>

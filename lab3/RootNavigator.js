@@ -6,6 +6,7 @@ import  {AppStack}  from './AppStack';
 import  {LoadingIndicator}  from '../component/LoadingIndicator';
 import {AuthenticatedUserContext} from '../providers';
 import TabNavigator from '../component/TabNavigator';
+import Route from '../Ex7/Route';
 
 export const RootNavigator = () => {
     const { user, setUser } = useContext(AuthenticatedUserContext);
@@ -31,7 +32,7 @@ export const RootNavigator = () => {
     //console.log("user1123"+user);
     return (
     <NavigationContainer>
-        {user ? <AppStack /> : <AuthStack />}
+        {user ? <Route /> : <AuthStack />}
     </NavigationContainer>
     );  
 };

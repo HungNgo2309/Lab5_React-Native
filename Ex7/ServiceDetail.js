@@ -1,15 +1,17 @@
 import React,{useContext,useState,useEffect} from "react";
-import {View, Text, StyleSheet, TouchableOpacity} from "react-native"
+import {View, Text, StyleSheet, TouchableOpacity, Image} from "react-native"
 import { AuthenticatedUserContext } from "../providers";
 import firestore from '@react-native-firebase/firestore';
 import { Appbar, Button, Dialog, Modal, Paragraph, Portal,Provider as PaperProvider, IconButton  } from "react-native-paper";
 import { useNavigation } from '@react-navigation/native';
+import { useMyContextController } from "./context";
 
 const ServiceDetail =({route})=>{
     const {service}=route.params;
-    const {name,price}=service;
+    const {name,price,imageUrl}=service;
     const Services = firestore().collection('User')
-    const { user } = useContext(AuthenticatedUserContext);
+    const[controller,dispatch]= useMyContextController();
+    const {userLogin}=controller;
     const[info,setInfo]=useState([])
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [currentTime, setCurrentTime] = useState(new Date());
@@ -26,7 +28,7 @@ const ServiceDetail =({route})=>{
         setCurrentTime(new Date());
         }, 1000);
         // Thiết lập sự kiện lắng nghe sự thay đổi trong collection
-        return  Services.where('email', '==', user.email).onSnapshot(querySnapshot=>{
+        return  Services.where('email', '==', userLogin.email).onSnapshot(querySnapshot=>{
           const list =[];
           // Lặp qua từng tài liệu trong collection
           querySnapshot.forEach(doc=>{  // Trích xuất dữ liệu từ tài liệu
@@ -81,7 +83,7 @@ const ServiceDetail =({route})=>{
         hideDeleteDialog();
       };
     
-
+      //console.log(imageUrl);
     return(
       <PaperProvider>
         <View style={{flex:1,backgroundColor:'white'}}>
@@ -97,7 +99,9 @@ const ServiceDetail =({route})=>{
                 <Text style={{fontWeight:'bold'}}>Phone: {info.phone}</Text>
                 <Text style={{fontWeight:'bold'}}>Date : {currentTime.toLocaleTimeString()}</Text>
             </View>
-            
+            {imageUrl!=null&&(
+                <Image style={{height:100,width:100}} source={{uri:imageUrl}} />
+            )}
             {/* Modal */}
             <Modal visible={isModalVisible} >
               <View style={styles.modalContainer}>

@@ -14,17 +14,13 @@ const initial = () => {
     
     const Books = firestore().collection('Books');
     const Categories = firestore().collection('Categories');
-    // Lặp qua mảng myBooksData để thêm sách vào cơ sở dữ liệu Firebase
     myBooksData.forEach(b => {
       const path = "bookstore/" + b.bookCover;
   
-      // Lấy đường dẫn URL từ Firebase Storage cho hình ảnh sách
       storage().ref(path).getDownloadURL()
         .then(url => {
-          // Cập nhật trường bookCover của đối tượng sách (b) thành URL mới
           b.bookCover = url;
   
-          // Thêm đối tượng sách vào cơ sở dữ liệu Firebase
           Books.doc(b.id + '').set(b)
             .then(() => console.log("Add new books!"))
             .catch((e) => console.log("Error: " + e));

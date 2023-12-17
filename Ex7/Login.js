@@ -1,27 +1,34 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {View, Text, StyleSheet} from "react-native"
 import { Button, HelperText, TextInput } from "react-native-paper";
-const Login =()=>{
+import { login, useMyContextController } from "./context";
+const Login =({navigation})=>{
+    const[controller,dispatch]= useMyContextController();
+    const {userLogin}=controller;
+    const[email,setEmail]=useState("");
+    const[password,setPassword]=useState("");
+    const[hidepass,sethidepass]=useState(true);
+    useEffect(()=>{
+      if(userLogin!=null)
+      {
+        if(userLogin.role=="admin")
+            navigation.navigate("Admin")
+        else if(userLogin.role=="customer")
+            navigation.navigate("Customer")
+      }
+    },[userLogin])
+    
     const hasErrors = () => {
         return !email.includes('@');
       };
     const handleLogin = () => {
-        auth()
-          .signInWithEmailAndPassword(email, password)
-          .then(({ user }) => {
-            console.log(user);
-          })
-          .catch((error) => {
-            console.error(error);
-          });
-      };
-      
+        login(dispatch,email,password)
+      };      
     return(
         <View>
             <Text>Login</Text>
              <TextInput
                     placeholder='Enter Your Email'
-                    style={styles.ti}
                     value={email}
                     onChangeText={setEmail}
                     left={<TextInput.Icon icon="email" />}
@@ -31,7 +38,6 @@ const Login =()=>{
                 </HelperText>
                 <TextInput
                     placeholder='Enter Password'
-                    style={styles.ti}
                     secureTextEntry={hidepass}
                     value={password}
                     onChangeText={setPassword}
@@ -39,7 +45,7 @@ const Login =()=>{
                     right={<TextInput.Icon icon="eye" onPress={()=>sethidepass(!hidepass)}/>}
                 />
                 
-                <Button style={styles.login} onPress={()=>handleLogin()}>
+                <Button  onPress={()=>handleLogin()}>
                     Login
                 </Button>
         </View>

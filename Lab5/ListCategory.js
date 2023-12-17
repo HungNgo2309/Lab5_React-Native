@@ -70,14 +70,14 @@ const ListCategory=()=>{
                                 {item.reader}
                             </Button>
                         </View>
-                        <View style={{flexDirection:'row'}}>
+                        {/* <View style={{flexDirection:'row'}}>
                             <Text>
                             {
                                 item.ID_category
                             }
                             </Text>
                             
-                        </View>
+                        </View> */}
                     </View>
                 </TouchableOpacity>
         )

@@ -3,6 +3,8 @@ import React from "react";
 import { Image } from "react-native";
 import { create } from "react-test-renderer";
 import Home from "./Tabs";
+import Tabs from "./Tabs";
+import Setting from "./Setting";
 
 const Tab = createBottomTabNavigator();
 const Tabst=()=>{
@@ -65,10 +67,10 @@ const Tabst=()=>{
                     }
                 }
             })}>
-                <Tab.Screen name="Home" component={Home}/>
+                <Tab.Screen name="Home" component={Tabs}/>
                 <Tab.Screen name="Search" component={Home}/>
                 <Tab.Screen name="Notification" component={Home}/>
-                <Tab.Screen name="Setting" component={Home}/>
+                <Tab.Screen name="Setting" component={Setting}/>
         </Tab.Navigator>
     )
 }

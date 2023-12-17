@@ -1,14 +1,12 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import React from "react";
 import { Image } from "react-native";
-import { create } from "react-test-renderer";
-import Home from "./HomeScreen";
-import SearchAutoComplete from "./Search";
-import { HomeStack } from "./HomeStack";
-import Logout from "./Logout";
+import Setting from "./Setting";
+import CustomerStack from "./CustomerStack";
+import History from "./History";
 
 const Tab = createBottomTabNavigator();
-const Tabs=()=>{
+const CustomerTab=()=>{
     return(
         <Tab.Navigator
             screenOptions={({route})=>({
@@ -68,11 +66,11 @@ const Tabs=()=>{
                     }
                 }
             })}>
-                <Tab.Screen name="Home" component={HomeStack}/>
-                <Tab.Screen name="Search" component={SearchAutoComplete}/>
-                <Tab.Screen name="Notification" component={Home}/>
-                <Tab.Screen name="Setting" component={Logout}/>
+                <Tab.Screen name="Home" component={CustomerStack}/>
+                <Tab.Screen name="Search" component={CustomerStack}/>
+                <Tab.Screen name="History" component={History}/>
+                <Tab.Screen name="Setting" component={Setting}/>
         </Tab.Navigator>
     )
 }
-export default Tabs;
+export default CustomerTab;
